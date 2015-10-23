@@ -1,0 +1,26 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Logo Small</th>
+      <th>Logo Large</th>
+      <th>Logo 120x120</th>
+      <th>Logo 210x80</th>
+      <th>Logo 450x450</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    {% for airline in airlines %}
+      <tr>
+        <td>{{ airline.name }}</td>
+        <td><img src="{{airline.logo_small}}" class="hidden" onerror="this.parentNode.className = 'danger'" onload="this.parentNode.className = 'success'" /></td>
+        <td><img src="{{airline.logo_large}}" class="hidden" onerror="this.parentNode.className = 'danger'" onload="this.parentNode.className = 'success'" /></td>
+        <td><img src="{{airline.logo_120x120}}" class="hidden" onerror="this.parentNode.className = 'danger'" onload="this.parentNode.className = 'success'" /></td>
+        <td><img src="{{airline.logo_210x80}}" class="hidden" onerror="this.parentNode.className = 'danger'" onload="this.parentNode.className = 'success'" /></td>
+        <td><img src="{{airline.logo_450x450}}" class="hidden" onerror="this.parentNode.className = 'danger'" onload="this.parentNode.className = 'success'" /></td>
+      </tr>
+    {% endfor %}
+  </tbody>
+
+</table>

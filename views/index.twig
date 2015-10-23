@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-MfvZlkHCEqatNoGiOXveE8FIwMzZg4W85qfrfIFBfYc= sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+  <link rel="stylesheet" href="http://css-spinners.com/css/spinner/timer.css" type="text/css">
+  <style>
+  @media print {
+    td {
+      -webkit-print-color-adjust: exact;
+    }
+    td.danger {
+      background-color: #f2dede!important;
+    }
+    td.success {
+      background-color: #dff0d8!important;
+    }
+  }
+  </style>
+  <title>Airline Logo Status</title>
+</head>
+<body>
+
+  <div class="container">
+    <div class="row">
+      <div>
+        <h1>Airline logo status</h1>
+      </div>
+    </div>
+    <div class="row">
+        <div id="table"><div class="timer-loader">Loading…</div></div>
+    </div>
+  </div>
+
+  <script src="https://www.rootcdn.com/libs/twig.js/0.8.2/twig.min.js" ></script>
+  <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+  <script>
+    (function($) {
+      'use strict';
+      fetch('https://services.fclmedia.com/api/airlines')
+        .then(function(res) { return res.json() })
+        .then(function(body) {
+          var template = twig({
+            id: 'table',
+            href: 'tpl/table.twig',
+            load: function(template) {
+              var html = template.render(body);
+              $('#table').html(html);
+              $('#table img').each(function() {
+                var src = $(this).attr('src').replace("https://assets.fclmedia.com/global/airlines/", '');
+                if (src == 'NULL' || src == '' || $(this).parent().hasClass('danger')) {
+                  src = '<b><em>' + src + '</em></b>';
+                }
+                $(this).parent().prepend(src);
+              });
+            }
+          });
+        })
+    })(jQuery);
+  </script>
+</body>
+</html>
